@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Starbucks — Coffeehouse</title>
+	<meta name="description" content="Starbucks is a global coffeehouse brand serving handcrafted espresso, blended beverages, and fresh bakery items. Explore the menu, find a store, read our stories, and order ahead.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--green: rgb(0, 112, 74);
+			--green-dark: rgb(30, 57, 50);
+			--cream: rgb(245, 241, 228);
+			--text: rgb(46, 46, 46);
+			--white: rgb(255, 255, 255);
+			--bg: rgb(250, 248, 243);
+			--gold: rgb(198, 156, 109);
+			--pale: rgb(232, 226, 208);
+		}
+		* { box-sizing: border-box; }
+		html, body { margin: 0; padding: 0; }
+		body {
+			font-family: 'Inter', sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			-webkit-font-smoothing: antialiased;
+		}
+		a { color: inherit; text-decoration: none; }
+		h1, h2, h3 { font-family: 'Manrope', sans-serif; margin: 0; }
+		p { margin: 0; }
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 22px 6vw;
+			background: var(--white);
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+		}
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-family: 'Manrope', sans-serif;
+			font-weight: 800;
+			font-size: 20px;
+			color: var(--green-dark);
+			letter-spacing: -0.02em;
+		}
+		.logo .mark {
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			background: var(--green);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--white);
+			font-family: 'Manrope', sans-serif;
+			font-weight: 800;
+			font-size: 15px;
+		}
+		nav { display: flex; gap: 32px; font-weight: 600; }
+		nav a { opacity: 0.85; transition: opacity 0.15s, color 0.15s; }
+		nav a:hover { opacity: 1; color: var(--green); }
+		.cta {
+			background: var(--green);
+			color: var(--white);
+			padding: 12px 24px;
+			border-radius: 999px;
+			font-weight: 700;
+		}
+
+		.hero {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 40px;
+			padding: 64px 6vw 100px;
+			background: var(--cream);
+		}
+		.hero-copy { flex: 1 1 420px; max-width: 620px; }
+		.hero h1 {
+			font-weight: 800;
+			font-size: clamp(36px, 5vw, 58px);
+			line-height: 1.08;
+			color: var(--green-dark);
+			letter-spacing: -0.02em;
+		}
+		.hero p {
+			margin-top: 20px;
+			font-size: 17px;
+			line-height: 1.6;
+		}
+		.hero-actions { margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap; }
+		.btn-primary {
+			background: var(--green);
+			color: var(--white);
+			padding: 14px 28px;
+			border-radius: 999px;
+			font-weight: 700;
+			font-size: 14px;
+		}
+		.btn-secondary {
+			background: transparent;
+			border: 1.5px solid var(--green-dark);
+			color: var(--green-dark);
+			padding: 14px 28px;
+			border-radius: 999px;
+			font-weight: 700;
+			font-size: 14px;
+		}
+		.hero-media {
+			flex: 1 1 380px;
+			aspect-ratio: 4 / 3;
+			border-radius: 24px;
+			background: linear-gradient(135deg, var(--green), var(--green-dark));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--white);
+			font-family: 'Manrope', sans-serif;
+			font-weight: 800;
+			font-size: 20px;
+		}
+
+		section { padding: 84px 6vw; }
+		.section-title {
+			font-weight: 800;
+			font-size: clamp(28px, 3.5vw, 42px);
+			color: var(--green-dark);
+			letter-spacing: -0.02em;
+			text-align: center;
+		}
+		.section-subtitle {
+			max-width: 560px;
+			margin: 16px auto 0;
+			text-align: center;
+			font-size: 16px;
+			line-height: 1.6;
+			opacity: 0.85;
+		}
+
+		.menu-grid {
+			margin-top: 48px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			gap: 24px;
+		}
+		.menu-card {
+			background: var(--white);
+			border-radius: 20px;
+			padding: 28px;
+			box-shadow: 0 10px 30px -12px rgba(30, 57, 50, 0.15);
+		}
+		.menu-card .icon {
+			width: 48px;
+			height: 48px;
+			border-radius: 14px;
+			background: var(--pale);
+			margin-bottom: 20px;
+		}
+		.menu-card h3 { font-weight: 700; font-size: 18px; color: var(--green-dark); }
+		.menu-card p { margin-top: 10px; font-size: 14px; line-height: 1.6; opacity: 0.85; }
+
+		.section-dark { background: var(--green-dark); color: var(--pale); }
+		.section-dark .section-title { color: var(--white); }
+		.locations {
+			margin-top: 48px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 24px;
+		}
+		.location-card {
+			background: rgba(255, 255, 255, 0.06);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 20px;
+			padding: 28px;
+		}
+		.location-card h3 { font-weight: 700; font-size: 18px; color: var(--gold); }
+		.location-card p { margin-top: 10px; font-size: 14px; line-height: 1.7; opacity: 0.85; }
+
+		.blog-grid {
+			margin-top: 48px;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			gap: 24px;
+		}
+		.blog-card {
+			background: var(--white);
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 10px 30px -12px rgba(30, 57, 50, 0.15);
+		}
+		.blog-card .thumb {
+			aspect-ratio: 16/10;
+			background: linear-gradient(135deg, var(--pale), var(--gold));
+		}
+		.blog-card .content { padding: 20px; }
+		.blog-card h3 { font-weight: 700; font-size: 16px; color: var(--green-dark); }
+		.blog-card p { margin-top: 8px; font-size: 13px; line-height: 1.6; opacity: 0.75; }
+
+		.reservation {
+			background: var(--cream);
+			text-align: center;
+		}
+		.reservation .btn-primary { margin-top: 28px; display: inline-block; }
+
+		footer {
+			padding: 60px 6vw 40px;
+			background: var(--white);
+			text-align: center;
+		}
+		footer .logo { justify-content: center; margin-bottom: 12px; }
+		.footer-links { display: flex; justify-content: center; gap: 24px; margin: 24px 0; flex-wrap: wrap; font-weight: 600; }
+		.footer-copy { font-size: 13px; opacity: 0.6; }
+
+		@media (max-width: 809px) {
+			nav { display: none; }
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="logo"><span class="mark">S</span>Starbucks</div>
+		<nav>
+			<a href="#menu">Menu</a>
+			<a href="#about">About</a>
+			<a href="#locations">Find a Store</a>
+			<a href="#blog">Stories</a>
+		</nav>
+		<a class="cta" href="#order">Order Ahead</a>
+	</header>
+
+	<section class="hero">
+		<div class="hero-copy">
+			<h1>Coffee that inspires and nurtures.</h1>
+			<p>Starbucks brings handcrafted espresso, blended beverages, and fresh bakery items to neighborhoods around the world. Discover our menu, find your nearest store, and order ahead with the app.</p>
+			<div class="hero-actions">
+				<a class="btn-primary" href="#menu">View Menu</a>
+				<a class="btn-secondary" href="#order">Order Ahead</a>
+			</div>
+		</div>
+		<div class="hero-media">Starbucks Coffee</div>
+	</section>
+
+	<section id="menu">
+		<h2 class="section-title">Our Menu</h2>
+		<p class="section-subtitle">From rich espresso to signature blended beverages, every drink is handcrafted by our baristas.</p>
+		<div class="menu-grid">
+			<div class="menu-card">
+				<div class="icon"></div>
+				<h3>Espresso &amp; Coffee</h3>
+				<p>Handcrafted lattes, cappuccinos, and brewed coffee made with 100% arabica beans.</p>
+			</div>
+			<div class="menu-card">
+				<div class="icon"></div>
+				<h3>Blended Beverages</h3>
+				<p>Ice-blended favorites and refreshers crafted fresh for every order.</p>
+			</div>
+			<div class="menu-card">
+				<div class="icon"></div>
+				<h3>Bakery &amp; Snacks</h3>
+				<p>Freshly baked pastries, sandwiches, and treats to pair with your drink.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-dark" id="locations">
+		<h2 class="section-title">Find a Store</h2>
+		<p class="section-subtitle">Visit a Starbucks near you — open early, open late.</p>
+		<div class="locations">
+			<div class="location-card">
+				<h3>Downtown Store</h3>
+				<p>123 Main Street<br>Open daily, 5am – 9pm</p>
+			</div>
+			<div class="location-card">
+				<h3>Riverside Store</h3>
+				<p>48 Harbor Lane<br>Open daily, 5:30am – 10pm</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="blog">
+		<h2 class="section-title">Stories</h2>
+		<p class="section-subtitle">News, brewing tips, and stories from our partners and roasters.</p>
+		<div class="blog-grid">
+			<article class="blog-card">
+				<div class="thumb"></div>
+				<div class="content">
+					<h3>The Craft of Espresso</h3>
+					<p>How our baristas pull the perfect shot, every time.</p>
+				</div>
+			</article>
+			<article class="blog-card">
+				<div class="thumb"></div>
+				<div class="content">
+					<h3>Meet Our Partners</h3>
+					<p>The people behind the counter at every Starbucks store.</p>
+				</div>
+			</article>
+			<article class="blog-card">
+				<div class="thumb"></div>
+				<div class="content">
+					<h3>Sourcing Coffee Responsibly</h3>
+					<p>Our commitment to ethically sourced beans, worldwide.</p>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="reservation" id="order">
+		<h2 class="section-title">Order Ahead</h2>
+		<p class="section-subtitle">Skip the line — order from the app and pick up at your nearest store.</p>
+		<a class="btn-primary" href="#">Get the App</a>
+	</section>
+
+	<footer id="about">
+		<div class="logo"><span class="mark">S</span>Starbucks</div>
+		<div class="footer-links">
+			<a href="#menu">Menu</a>
+			<a href="#locations">Find a Store</a>
+			<a href="#blog">Stories</a>
+			<a href="#order">Order Ahead</a>
+		</div>
+		<p class="footer-copy">© 2026 Starbucks-style demo template. Unofficial fan template — not affiliated with Starbucks Corporation.</p>
+	</footer>
+</body>
+</html>
