@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ClipForge</title>
+  <meta name="description" content="Trouve et découpe les meilleurs moments de tes vidéos en clips verticaux, directement sur ton téléphone ou Chromebook." />
+  <meta name="theme-color" content="#0d0b14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ClipForge" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><img src="icons/icon-192.png" alt="" width="32" height="32" /><span>Clip<b>Forge</b></span></div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="clip" aria-selected="true">Découper</button>
+      <button role="tab" data-tab="trends" aria-selected="false">Tendances</button>
+      <button role="tab" data-tab="help" aria-selected="false">Aide</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================ DÉCOUPER ============================ -->
+    <section id="tab-clip" class="tab">
+      <div id="compat" class="notice warn" hidden></div>
+
+      <label id="drop" class="drop">
+        <input id="file" type="file" accept="video/*" hidden />
+        <div class="drop-icon">＋</div>
+        <div><b>Choisir une vidéo</b><br /><small>Pellicule, Fichiers ou glisser-déposer · MP4, MOV, WEBM</small></div>
+      </label>
+
+      <div id="player" class="card" hidden>
+        <video id="preview" controls playsinline preload="metadata"></video>
+        <div class="row between small muted"><span id="fileinfo"></span><button id="change" class="link">Changer</button></div>
+      </div>
+
+      <div class="card" id="settings">
+        <h2>Réglages</h2>
+        <div class="field">
+          <label for="count">Nombre de clips <output id="countOut">5</output></label>
+          <input id="count" type="range" min="1" max="10" value="5" />
+        </div>
+        <div class="field">
+          <span class="lbl">Durée d'un clip</span>
+          <div class="seg" id="length">
+            <button data-v="15">15 s</button><button data-v="30" class="on">30 s</button><button data-v="45">45 s</button><button data-v="60">60 s</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Format</span>
+          <div class="seg" id="format">
+            <button data-v="vertical" class="on">9:16 flou</button><button data-v="crop">9:16 plein</button><button data-v="original">Original</button>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="zoom">Zoom <output id="zoomOut">1.0×</output></label>
+            <input id="zoom" type="range" min="1" max="2.2" step="0.05" value="1" />
+          </div>
+          <div class="field">
+            <label for="offset">Cadrage <output id="offsetOut">centre</output></label>
+            <input id="offset" type="range" min="-1" max="1" step="0.05" value="0" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="title">Titre incrusté <small class="muted">({n} = numéro du clip)</small></label>
+          <input id="title" type="text" maxlength="80" placeholder="ex : LA POLICE M'A EU EN 3 SECONDES" />
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="handle">Pseudo / filigrane</label>
+            <input id="handle" type="text" maxlength="30" placeholder="@tonpseudo" />
+          </div>
+          <div class="field">
+            <span class="lbl">Qualité</span>
+            <div class="seg" id="quality"><button data-v="720" class="on">720p</button><button data-v="1080">1080p</button></div>
+          </div>
+        </div>
+      </div>
+
+      <button id="analyze" class="primary" disabled>Analyser la vidéo</button>
+      <div id="progress" class="progress" hidden>
+        <div class="bar"><i></i></div><div class="small muted" id="progressText"></div>
+      </div>
+
+      <div id="results" hidden>
+        <div class="card">
+          <div class="row between"><h2>Intensité</h2><button id="addClip" class="ghost small">＋ Clip ici</button></div>
+          <canvas id="timeline" height="90"></canvas>
+          <p class="small muted">Touche la courbe pour te déplacer. « Clip ici » crée un clip à la position de la vidéo.</p>
+        </div>
+        <div class="row between"><h2 id="clipsTitle">Meilleurs moments</h2><button id="exportAll" class="ghost">Tout exporter</button></div>
+        <div id="clips"></div>
+        <div class="card">
+          <h2>Légende à copier</h2>
+          <textarea id="caption" rows="4">Ce moment sur GTA 6 😳 attends la fin…
+
+#gta6 #gtavi #gta #gaming #fyp</textarea>
+          <button id="copyCaption" class="ghost small">Copier</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ TENDANCES ============================ -->
+    <section id="tab-trends" class="tab" hidden>
+      <div class="card">
+        <h2>Vidéos qui explosent</h2>
+        <p class="small muted">Classées par <b>vues par heure</b> depuis la mise en ligne : ce qui monte le plus vite en ce moment.</p>
+        <div class="field">
+          <label for="query">Recherche</label>
+          <input id="query" type="search" value="GTA 6" />
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="days">Publiées depuis</label>
+            <select id="days"><option value="1">24 h</option><option value="3">3 jours</option><option value="7" selected>7 jours</option><option value="30">30 jours</option></select>
+          </div>
+          <div class="field">
+            <label for="lang">Langue</label>
+            <select id="lang"><option value="fr">Français</option><option value="en">Anglais</option><option value="es">Espagnol</option></select>
+          </div>
+        </div>
+        <details id="keyBox">
+          <summary>Clé API YouTube <span id="keyState" class="small muted"></span></summary>
+          <p class="small muted">Gratuite : console.cloud.google.com → créer un projet → activer « YouTube Data API v3 » → Identifiants → Clé API. Elle reste uniquement dans ce navigateur.</p>
+          <input id="ytKey" type="password" autocomplete="off" placeholder="AIza…" />
+        </details>
+        <button id="searchBtn" class="primary">Chercher</button>
+      </div>
+      <div id="trendMsg" class="notice" hidden></div>
+      <div id="trends"></div>
+    </section>
+
+    <!-- ============================ AIDE ============================ -->
+    <section id="tab-help" class="tab" hidden>
+      <div class="card prose">
+        <h2>Installer l'appli</h2>
+        <p><b>iPhone (Safari)</b> : bouton Partager <span aria-hidden="true">⎋</span> → « Sur l'écran d'accueil ».</p>
+        <p><b>Chromebook (Chrome)</b> : icône d'installation dans la barre d'adresse, ou menu ⋮ → « Installer ClipForge ».</p>
+        <h2>Comment ça marche</h2>
+        <p>Tout se passe <b>sur ton appareil</b> : la vidéo n'est envoyée nulle part. L'appli mesure les pics sonores (cris, explosions, réactions) et l'action à l'image, repère les meilleurs passages, puis les ré-encode en 9:16 avec ton titre et ton pseudo.</p>
+        <p>L'export se fait en temps réel (un clip de 30 s prend ~30 s) : <b>garde l'écran allumé et l'appli au premier plan</b>. Sur iPhone, « Partager » permet d'enregistrer le clip dans Photos ou de l'envoyer directement à TikTok.</p>
+        <p>Vidéo très longue sur iPhone ? Si l'analyse audio échoue (mémoire), coupe-la d'abord en morceaux de ~20 min ou exporte-la en 720p.</p>
+        <h2>Gagner de l'argent sans te faire bannir</h2>
+        <ul>
+          <li><b>Ton propre gameplay</b> : le plus sûr. Enregistre tes sessions, laisse l'appli trouver les meilleurs moments.</li>
+          <li><b>Campagnes de clipping</b> : beaucoup de streamers paient les clippeurs aux 1 000 vues. Tu as alors leur autorisation.</li>
+          <li><b>Avec l'accord du créateur</b>, en le créditant. Republier les vidéos des autres sans accord = strikes et démonétisation.</li>
+          <li>Ajoute de la valeur (titre, montage, commentaire) : le simple re-upload est rarement monétisable.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <video id="work" muted playsinline preload="auto" hidden></video>
+  <div id="toast" class="toast" hidden></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

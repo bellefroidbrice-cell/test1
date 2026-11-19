@@ -76,3 +76,19 @@ Pour **gagner de l'argent légalement** avec ce clipping :
 - **Avec l'accord du créateur** : demande-le, et crédite-le toujours (le `report.md` met son nom dans la légende).
 - Ajoute de la valeur (commentaire, montage, sous-titres, contexte) : le simple re-upload est rarement monétisable
   sur YouTube/TikTok (politique « contenu réutilisé »).
+
+---
+
+## 📱 Version appli web (iPhone, Chromebook, PC) — dossier `docs/`
+
+Tout tourne **dans le navigateur**, sans serveur ni installation : analyse du son et de l'image,
+choix des meilleurs moments, export 9:16 avec titre et pseudo, partage direct vers Photos/TikTok sur iPhone.
+Installable sur l'écran d'accueil (PWA), fonctionne hors connexion une fois installée.
+
+**Mise en ligne gratuite (GitHub Pages)** : sur GitHub → *Settings* → *Pages* → *Deploy from a branch* →
+choisir la branche et le dossier `/docs` → *Save*. L'appli sera disponible à
+`https://<ton-pseudo>.github.io/<nom-du-repo>/` (le dépôt doit être public sur un compte gratuit).
+
+Onglet **Tendances** : nécessite une clé gratuite « YouTube Data API v3 » (Google Cloud Console), stockée uniquement dans le navigateur.
+
+Tester en local : `cd docs && python3 -m http.server 8000` puis ouvrir http://localhost:8000.
