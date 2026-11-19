@@ -1,0 +1,4 @@
+numpy>=1.24
+yt-dlp>=2025.1.1
+# optionnel : transcription, sous-titres auto et scoring par mots-clés
+# faster-whisper>=1.0
